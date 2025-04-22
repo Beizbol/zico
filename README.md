@@ -1,2 +1,2 @@
 # zico
-CLI tool to generate favicon.ico from an svg image
+A zig cli tool to generate favicon.ico from an svg image
