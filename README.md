@@ -6,3 +6,10 @@ A zig cli tool to generate favicon.ico from an svg image
 ```
 zig build run -- test/sound.svg
 ```
+
+## platforms
+| Platorm | Support            |
+|---------|--------------------|
+| windows | :heavy_check_mark: |
+| linux   | :soon:             |
+| macOS   | :x:                |
