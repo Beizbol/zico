@@ -1,0 +1,18 @@
+.{
+    .name = .zico,
+
+    .version = "0.0.0",
+
+    // When forking a Zig project, this id should be regenerated
+    .fingerprint = 0xf11d2be6aab27ed6,
+
+    .minimum_zig_version = "0.14.0",
+
+    .dependencies = .{},
+
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}

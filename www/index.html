@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Write Ico</title>
+    <style>
+      canvas {
+        outline: 1px solid black;
+      }
+
+      body {
+        padding: 2rem;
+        margin: 0 auto;
+        width: fit-content;
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .flex {
+        display: flex;
+        gap: 1rem;
+        align-items: end;
+      }
+
+      button {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <input
+      type="file"
+      name="open"
+      id="upload"
+      accept="image/apng, image/bmp, image/gif, image/jpeg, image/pjpeg, image/png, image/svg+xml, image/tiff, image/webp, image/x-icon"
+      required
+    >
+    <div class="flex">
+      <canvas id="can64" width="64px" height="64px"></canvas>
+      <canvas id="can48" width="48px" height="48px"></canvas>
+      <canvas id="can32" width="32px" height="32px"></canvas>
+      <canvas id="can24" width="24px" height="24px"></canvas>
+      <canvas id="can16" width="16px" height="16px"></canvas>
+    </div>
+    <div><button id="save" disabled>Save</button></div>
+    <script type="module">
+      const can64 = document.getElementById("can64");
+      const can48 = document.getElementById("can48");
+      const can32 = document.getElementById("can32");
+      const can24 = document.getElementById("can24");
+      const can16 = document.getElementById("can16");
+      const ctx64 = can64.getContext("2d");
+      const ctx48 = can48.getContext("2d");
+      const ctx32 = can32.getContext("2d");
+      const ctx24 = can24.getContext("2d");
+      const ctx16 = can16.getContext("2d");
+      const photo = new Image();
+
+      var name = ""
+      const upload = document.getElementById("upload");
+      upload.addEventListener("change", (e) => {
+          if (!upload.files || upload.files.length < 1) {
+              alert("No image files selected.");
+              return;
+          }
+          if (upload.files.length > 1) {
+              alert("One image file at a time.");
+              return;
+          }
+          const file = upload.files[0];
+          const url = URL.createObjectURL(file);
+          photo.src = url;
+          console.log("Draw pre");
+          photo.onload = () => {
+              name = file.name.slice(0, -4);
+              save.disabled = false;
+              
+              // ctx64.clearRect(0,0,64,64)  
+              ctx64.drawImage(photo, 0, 0);
+              // ctx48.clearRect(0,0,48,48)  
+              ctx48.drawImage(photo, 0, 0);
+              // ctx32.clearRect(0,0,32,32)  
+              ctx32.drawImage(photo, 0, 0);
+              // ctx24.clearRect(0,0,24,24)  
+              ctx24.drawImage(photo, 0, 0);
+              // ctx16.clearRect(0,0,16,16)  
+              ctx16.drawImage(photo, 0, 0);
+              console.log("Draw done");
+              
+          };
+      });
+
+      const save = document.getElementById("save");
+      save.addEventListener("click", () => {
+        const cans = [can64, can48, can32, can24, can16];
+        const names = ["p64.png", "p48.png", "p32.png", "p24.png", "p16.png"];
+        for (let i = 0; i < 5; i++) {
+          const url = cans[i].toDataURL("image/png");
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = names[i];
+          link.click();
+        }
+        console.log("Save done");
+      });
+    </script>
+  </body>
+</html>
